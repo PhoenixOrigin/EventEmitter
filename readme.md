@@ -21,7 +21,7 @@ It creates "channels" which can be fired events upon. You can assign each callba
 <dependency>
   <groupId>net.phoenix</groupId>
   <artifactId>eventemitter</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
 </dependency>
 ```
 ### Gradle Groovy
@@ -32,7 +32,7 @@ repositories {
     }
 }
 dependencies {
-    implementation 'net.phoenix:eventemitter:0.0.2'
+    implementation 'net.phoenix:eventemitter:0.0.3'
 }
 ```
 ### Gradle Kotlin
@@ -42,7 +42,7 @@ repositories {
     maven(url = "https://gradle.phoenix.is-a.dev/repository/gradle/")
 }
 dependencies {
-    implementation("net.phoenix:eventemitter:0.0.2")
+    implementation("net.phoenix:eventemitter:0.0.3")
 }
 ```
 ## Using it

@@ -25,7 +25,7 @@ jobs:
         id: version
         with:
           scheme: semver
-          increment: patch
+          increment: major
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:

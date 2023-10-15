@@ -45,6 +45,6 @@ jobs:
           password: ${{ secrets.password }}
           format: maven2
           repository: maven-releases
-          coordinates: groupId=net.phoenix artifactId=eventemitter version={{ steps.version.outputs.version }}
+          coordinates: groupId=net.phoenix artifactId=eventemitter version=${{ steps.version.outputs.version }}
           assets: extension=jar
           filename: ./build/libs/EventEmitter-1.0-all.jar

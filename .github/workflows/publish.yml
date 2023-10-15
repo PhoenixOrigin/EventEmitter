@@ -34,6 +34,10 @@ jobs:
       - name: Update gradle.properties
         run: |
           sed -i 's/^version=.*/version${{ env.NEXT_RELEASE_VERSION }}/' gradle.properties
+      - name: Debug
+        run: |
+          ls -l
+          cat gradle.properties
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:

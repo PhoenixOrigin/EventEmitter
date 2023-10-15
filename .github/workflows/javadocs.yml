@@ -4,7 +4,7 @@ on:
   push
 
 jobs:
-  publish:
+  makedoc:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy JavaDoc

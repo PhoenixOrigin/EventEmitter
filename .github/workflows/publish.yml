@@ -20,12 +20,11 @@ jobs:
     steps:
       - name: checkout source
         uses: actions/checkout@v3
-      - name: Get next version
-        uses: reecetech/version-increment@2023.9.3
-        id: version
+      - name: Generate versions
+        uses: HardNorth/github-version-generate@v1.2.0
         with:
-          scheme: semver
-          increment: major
+          version-source: file
+          version-file: ${{ env.VERSION_FILE }}
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
@@ -36,7 +35,7 @@ jobs:
         with:
           gradle-version: release-candidate
           arguments: shadowJar
-      - run: echo ${{ steps.version.outputs.version }}
+      - run: echo env.NEXT_VERSION
       - name: Nexus Repo Publish
         uses: sonatype-nexus-community/nexus-repo-github-action@master
         with:
@@ -45,6 +44,6 @@ jobs:
           password: ${{ secrets.password }}
           format: maven2
           repository: maven-releases
-          coordinates: groupId=net.phoenix artifactId=eventemitter version=1.0.1
+          coordinates: groupId=net.phoenix artifactId=eventemitter version=1.0.2
           assets: extension=jar
           filename: /build/libs/EventEmitter-1.0-all.jar

@@ -34,10 +34,11 @@ jobs:
       - name: Update gradle.properties
         run: |
           sed -i 's/^version=.*/version=${{ env.NEXT_RELEASE_VERSION }}/' gradle.properties
-      - name: Debug
-        run: |
-          ls -l
-          cat gradle.properties
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_user_name: 'version_increaser'
+          commit_user_email: 'phoenixorigin171@gmail.com'
+          commit_message: 'increase version'
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
@@ -57,6 +58,6 @@ jobs:
           password: ${{ secrets.password }}
           format: maven2
           repository: maven-releases
-          coordinates: groupId=net.phoenix artifactId=eventemitter version=${{ env.NEXT_VERSION }}
+          coordinates: groupId=net.phoenix artifactId=eventemitter version=${{ env.NEXT_RELEASE_VERSION }}
           assets: extension=jar
           filename: /build/libs/EventEmitter.jar

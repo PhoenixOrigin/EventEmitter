@@ -19,7 +19,7 @@ public interface Callback<T extends Event> {
      * OR
      * <pre>
      * <code>
-     * public class EventHandler implements Callback<\CustomEvent> {
+     * public class EventHandler implements Callback&lt;CustomEvent&gt; {
      *         {@code @Override}
      *         public void call(String channel, CustomEvent event) {
      *             // Handle Event

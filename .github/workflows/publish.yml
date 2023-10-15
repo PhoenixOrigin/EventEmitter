@@ -3,6 +3,10 @@ name: Deploy Javadoc
 on:
   push
 
+env:
+  VERSION_FILE_NAME: 'VERSION'
+  VERSION_BUMP_FILE: 'version_fragment'
+
 jobs:
   makedoc:
     runs-on: ubuntu-latest

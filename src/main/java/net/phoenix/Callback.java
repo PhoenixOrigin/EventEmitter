@@ -17,7 +17,6 @@ public interface Callback<T extends Event> {
      * </code>
      * </pre>
      * OR
-     * <pre></pre>
      * <pre>
      * <code>
      * public class EventHandler implements Callback<CustomEvent> {

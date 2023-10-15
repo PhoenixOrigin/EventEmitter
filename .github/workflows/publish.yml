@@ -1,11 +1,7 @@
-name: Deploy Javadoc
+name: Publish
 
 on:
   push
-
-env:
-  VERSION_FILE_NAME: 'VERSION'
-  VERSION_BUMP_FILE: 'version_fragment'
 
 jobs:
   makedoc:

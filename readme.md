@@ -1,12 +1,10 @@
 # EventEmitter
 Very simple event emitter library made in java
-<br>
-Automatically generated javadocs- [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://phoenixorigin.github.io/eventemitter/javadoc/)
 
 
 # How it works
 It creates "channels" which can be fired events upon. You can assign each callback a priority and cancel it during the callback (Callbacks already fired will not be reversed somehow). Events can be anything as long as they extend the Event class.
-# Usage
+# Usage [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://phoenixorigin.github.io/eventemitter/javadoc/)
 
 ## Add library
 ### Maven

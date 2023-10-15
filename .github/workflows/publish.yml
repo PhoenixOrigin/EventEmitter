@@ -33,7 +33,7 @@ jobs:
           version-file-extraction-pattern: '(?<=version=).+'
       - name: Update gradle.properties
         run: |
-          sed -i 's/^version=.*/version${{ env.NEXT_RELEASE_VERSION }}/' gradle.properties
+          sed -i 's/^version=.*/version=${{ env.NEXT_RELEASE_VERSION }}/' gradle.properties
       - name: Debug
         run: |
           ls -l
@@ -48,7 +48,7 @@ jobs:
         with:
           gradle-version: release-candidate
           arguments: shadowJar
-      - run: echo env.NEXT_VERSION_PATCH
+      - run: echo ${{ env.NEXT_VERSION_PATCH }}
       - name: Nexus Repo Publish
         uses: sonatype-nexus-community/nexus-repo-github-action@master
         with:

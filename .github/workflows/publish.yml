@@ -47,4 +47,4 @@ jobs:
           repository: maven-releases
           coordinates: groupId=net.phoenix artifactId=eventemitter version=${{ steps.version.outputs.version }}
           assets: extension=jar
-          filename: ./build/libs/EventEmitter-1.0-all.jar
+          filename: /build/libs/EventEmitter-1.0-all.jar

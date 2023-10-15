@@ -18,6 +18,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout source
+        uses: actions/checkout@v3
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:

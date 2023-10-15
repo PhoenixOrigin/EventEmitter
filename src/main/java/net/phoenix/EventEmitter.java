@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 /**
  * Standard event emitter class
- * @param <T> Event type. Either should be a class that extends Event OR a generic type (EventEmitter<? extends Event>)
+ * @param <T> Event type. Either should be a class that extends Event OR a generic type (? extends Event>)
  */
 public class EventEmitter<T extends Event> {
 

@@ -25,10 +25,15 @@ jobs:
       - name: checkout source
         uses: actions/checkout@v3
       - name: Generate versions
-        uses: HardNorth/github-version-generate@v1.2.0
+        id: version
+        uses: HardNorth/github-version-generate@v1.3.0
         with:
           version-source: file
-          version-file: ${{ env.VERSION_FILE }}
+          version-file: gradle.properties
+          version-file-extraction-pattern: '(?<=version=).+'
+      - name: Update gradle.properties
+        run: |
+          sed -i 's/^version=.*/version${{ env.NEXT_VERSION }}/' gradle.properties
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
@@ -48,6 +53,6 @@ jobs:
           password: ${{ secrets.password }}
           format: maven2
           repository: maven-releases
-          coordinates: groupId=net.phoenix artifactId=eventemitter version=1.0.2
+          coordinates: groupId=net.phoenix artifactId=eventemitter version=${{ env.NEXT_VERSION }}
           assets: extension=jar
-          filename: /build/libs/EventEmitter-1.0-all.jar
+          filename: /build/libs/EventEmitter.jar

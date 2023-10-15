@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'net.phoenix'
-version = '1.0'
+version = project.version
 
 repositories {
     mavenCentral()
@@ -17,4 +17,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+shadowJar {
+    archiveFileName = 'EventEmitter.jar'
 }

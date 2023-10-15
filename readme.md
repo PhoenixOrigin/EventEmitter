@@ -1,5 +1,6 @@
 # EventEmitter
 Very simple event emitter library made in java
+<br>
 Automatically generated javadocs- [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://phoenixorigin.github.io/eventemitter/javadoc/)
 
 

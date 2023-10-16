@@ -11,15 +11,14 @@ It creates "channels" which can be fired events upon. You can assign each callba
 ```xml
 <repositories>
     <repository>
-        <id>gradle</id>
-        <name>gradle</name>
-        <url>https://gradle.phoenix.is-a.dev</url>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
     </repository>
 </repositories>
 
 
 <dependency>
-  <groupId>net.phoenix</groupId>
+  <groupId>com.github.phoenix</groupId>
   <artifactId>eventemitter</artifactId>
   <version>LATEST</version>
 </dependency>
@@ -27,22 +26,20 @@ It creates "channels" which can be fired events upon. You can assign each callba
 ### Gradle Groovy
 ```groovy
 repositories {
-    maven {
-        url "https://gradle.phoenix.is-a.dev/repository/gradle/"
-    }
+    maven {url 'https://jitpack.io'}
 }
 dependencies {
-    implementation "net.phoenix:eventemitter:+"
+    implementation "com.github.phoenix:eventemitter:+"
 }
 ```
 ### Gradle Kotlin
 ```kotlin
 repositories {
     mavenCentral()
-    maven(url = "https://gradle.phoenix.is-a.dev/repository/gradle/")
+    maven(url = "https://jitpack.io")
 }
 dependencies {
-    implementation("net.phoenix:eventemitter:+")
+    implementation("com.github.phoenix:eventemitter:+")
 }
 ```
 ## Using it

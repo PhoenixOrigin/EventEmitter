@@ -7,39 +7,17 @@ It creates "channels" which can be fired events upon. You can assign each callba
 # Usage [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://phoenixorigin.github.io/EventEmitter/javadoc/)
 
 ## Add library
-### Maven
-```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-
-
-<dependency>
-  <groupId>com.github.phoenix</groupId>
-  <artifactId>eventemitter</artifactId>
-  <version>LATEST</version>
-</dependency>
-```
-### Gradle Groovy
+### Gradle
+#### Groovy
 ```groovy
-repositories {
-    maven {url 'https://jitpack.io'}
-}
 dependencies {
-    implementation "com.github.phoenix:eventemitter:+"
+    implementation 'io.github.phoenixorigin:eventemitter:1.0.0'
 }
 ```
-### Gradle Kotlin
+#### Kotlin
 ```kotlin
-repositories {
-    mavenCentral()
-    maven(url = "https://jitpack.io")
-}
 dependencies {
-    implementation("com.github.phoenix:eventemitter:+")
+    implementation("io.github.phoenixorigin:eventemitter:1.0.0")
 }
 ```
 ## Using it
@@ -102,7 +80,3 @@ String eventHandlerUUID = eventEmitter.on("channel", ((channel, event) -> {
 // Unregister the instance
 eventEmitter.off(eventHandlerUUID);
 ```
-# Contributing
-This is a one time project thing that I am probably never gonna look at again so if you want to make a change just make a PR and I will probably merge it
-# Credits
-Idea + some of the code- https://github.com/jafarlihi/eemit

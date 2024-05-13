@@ -1,12 +1,15 @@
 package net.phoenix;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 /**
  * Standard event emitter class
  * @param <T> Event type. Either should be a class that extends Event OR a generic type (EventEmitter&lt;? extends Event&gt;)
  */
+@SuppressWarnings("unused")
 public class EventEmitter<T extends Event> {
 
     private final HashMap<String, LinkedList<Pair<String, Callback<T>>>> callbacks = new HashMap<>();
@@ -50,15 +53,42 @@ public class EventEmitter<T extends Event> {
      * @param object Instance of event to send
      * @throws IllegalArgumentException Throws exception if the event passed is different to the EventHandler type
      */
-    public void emit(String channel, Event object) {
+    public void emit(String channel, T object) {
         if (!isMatchingEventType(object)) {
             throw new IllegalArgumentException("Object type does not match the EventEmitter type parameter.");
         }
         List<Pair<String, Callback<T>> > sortedCallbacks = getSortedCallbacks(channel);
         for (Pair<String, Callback<T>> callbackPair : sortedCallbacks) {
             if (object.cancelled) return;
-            callbackPair.getSecond().call(channel, (T) object);
+            callbackPair.second().call(channel, object);
         }
+    }
+
+    /**
+     * Awaits for a method under the global channel
+     *
+     * @throws IllegalArgumentException Throws exception if the event passed is different to the EventHandler type
+     */
+    public String on(Callback<T> callback) {
+        return on("global", callback);
+    }
+
+    /**
+     * Awaits for a method under the global channel
+     *
+     * @throws IllegalArgumentException Throws exception if the event passed is different to the EventHandler type
+     */
+    public String on(Callback<T> callback, Priority priority) {
+        return on("global", callback, priority);
+    }
+
+    /**
+     * Awaits for a method under the global channel
+     *
+     * @throws IllegalArgumentException Throws exception if the event passed is different to the EventHandler type
+     */
+    public void emit(T object) {
+        emit("global", object);
     }
 
 
@@ -99,6 +129,22 @@ public class EventEmitter<T extends Event> {
         return uuid;
     }
 
+    /**
+     * Awaits for a method under the global channel
+     *
+     * @throws InterruptedException Throws exception if the thread is interrupted
+     */
+    public T await(String channel) throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<T> e = new AtomicReference<>();
+        this.on(channel, (ch, event) -> {
+            latch.countDown();
+            e.set(event);
+        }, Priority.TOP);
+        latch.await();
+        return e.get();
+    }
+
 
     /**
      * Disable a eventHandler
@@ -109,7 +155,7 @@ public class EventEmitter<T extends Event> {
         for (String channel : callbacks.keySet()) {
             LinkedList<Pair<String, Callback<T>> > callbackList = callbacks.get(channel);
             if (callbackList != null) {
-                callbackList.removeIf(pair -> pair.getFirst().equals(uuid));
+                callbackList.removeIf(pair -> pair.first().equals(uuid));
             }
         }
     }
@@ -123,7 +169,7 @@ public class EventEmitter<T extends Event> {
         List<Pair<String, Callback<T>>> callbackPairList = callbacks.get(channel);
         if (callbackPairList != null) {
             return callbackPairList.stream()
-                    .sorted((pair1, pair2) -> Integer.compare(pair2.getPriority().getValue(), pair1.getPriority().getValue()))
+                    .sorted((pair1, pair2) -> Integer.compare(pair2.priority().getValue(), pair1.priority().getValue()))
                     .collect(Collectors.toList());
         }
         return Collections.emptyList();
@@ -141,31 +187,9 @@ public class EventEmitter<T extends Event> {
 
     /**
      * Stores pairs of code
+     *
      * @param <T1> UUID of callback
      * @param <T2> Callback
      */
-    static class Pair<T1, T2> {
-
-        private T1 first;
-        private T2 second;
-        private Priority priority;
-
-        public Pair(T1 first, T2 second, Priority priority) {
-            this.first = first;
-            this.second = second;
-            this.priority = priority;
-        }
-
-        public T1 getFirst() {
-            return first;
-        }
-
-        public T2 getSecond() {
-            return second;
-        }
-
-        public Priority getPriority() {
-            return priority;
-        }
-    }
+    record Pair<T1, T2>(T1 first, T2 second, Priority priority) { }
 }
